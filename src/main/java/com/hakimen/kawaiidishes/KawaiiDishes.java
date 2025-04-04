@@ -2,6 +2,7 @@ package com.hakimen.kawaiidishes;
 
 import com.hakimen.kawaiidishes.client.screens.BlenderScreen;
 import com.hakimen.kawaiidishes.client.screens.CoffeeMachineScreen;
+import com.hakimen.kawaiidishes.client.screens.DisplayCaseScreen;
 import com.hakimen.kawaiidishes.client.screens.IceCreamScreen;
 import com.hakimen.kawaiidishes.config.KawaiiDishesClientConfig;
 import com.hakimen.kawaiidishes.config.KawaiiDishesCommonConfig;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -58,11 +60,14 @@ public class KawaiiDishes {
         forgeBus.addListener(this::onLivingSpecialSpawn);
         bus.addListener(this::enqueueIMC);
         bus.addListener(this::clientStartup);
+
+        bus.addListener(this::setup);
+        forgeBus.register(this);
     }
 
     public void onLivingSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
         Entity entity = event.getEntity();
-        if (entity instanceof Monster monster && !entity.serializeNBT().getBoolean("isBaby") && event.getWorld().getRandom().nextFloat(0,1) < KawaiiDishesCommonConfig.chanceToSpawnWithDress.get()) {
+        if (!entity.isAddedToWorld() && entity instanceof Monster monster && !entity.serializeNBT().getBoolean("IsBaby") && event.getWorld().getRandom().nextFloat(0,1) < KawaiiDishesCommonConfig.chanceToSpawnWithDress.get()) {
             if ((monster instanceof Skeleton
                     || monster instanceof WitherSkeleton
                     || monster instanceof Zombie
@@ -87,7 +92,22 @@ public class KawaiiDishes {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.coffeeFruit.get(),0.25f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.driedCoffeeBeans.get(),0.50f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.roastedCoffeeBeans.get(),0.75f);
 
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.driedCocoaBeans.get(),0.50f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.roastedCocoaBeans.get(),0.75f);
+
+        /*ComposterBlock.COMPOSTABLES.put(ItemRegister.cakePiece.get(),0.65f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.honeyCheeseCakePiece.get(),0.65f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.chocolateCheeseCakePiece.get(),0.65f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.cheeseCakePiece.get(),0.65f);
+
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.honeyCheeseCake.get(),1f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.chocolateCheeseCake.get(),1f);
+        ComposterBlock.COMPOSTABLES.put(ItemRegister.cheeseCake.get(),1f);
+        */
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -107,6 +127,7 @@ public class KawaiiDishes {
             MenuScreens.register(ContainerRegister.coffeeMachine.get(), CoffeeMachineScreen::new);
             MenuScreens.register(ContainerRegister.iceCreamMachine.get(), IceCreamScreen::new);
             MenuScreens.register(ContainerRegister.blenderContainer.get(), BlenderScreen::new);
+            MenuScreens.register(ContainerRegister.DISPLAY_CASE.get(), DisplayCaseScreen::new);
         });
 
 
@@ -128,6 +149,7 @@ public class KawaiiDishes {
         ItemBlockRenderTypes.setRenderLayer(BlockRegister.coffeePress.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(BlockRegister.blender.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(BlockRegister.milkshakeCup.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegister.DISPLAY_CASE.get(), RenderType.cutout());
 
     }
 }

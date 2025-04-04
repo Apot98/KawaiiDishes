@@ -23,6 +23,9 @@ public class BlockEntityRegister {
     public static final RegistryObject<BlockEntityType<BlenderBlockEntity>> blender = BLOCK_ENTITIES.register("blender_entity",
             ()->BlockEntityType.Builder.of(BlenderBlockEntity::new,BlockRegister.blender.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<DisplayCaseBlockEntity>> DISPLAY_CASE = BLOCK_ENTITIES.register("display_case_entity",
+            ()->BlockEntityType.Builder.of(DisplayCaseBlockEntity::new,BlockRegister.DISPLAY_CASE.get()).build(null));
+
 
     public static final RegistryObject<BlockEntityType<PlaceableFoodBlockEntity>> placeableFood = BLOCK_ENTITIES.register("coffee_mug_entity",
             ()->BlockEntityType.Builder.of(
