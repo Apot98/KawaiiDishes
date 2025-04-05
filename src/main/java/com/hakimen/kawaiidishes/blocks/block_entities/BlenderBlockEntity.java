@@ -187,8 +187,8 @@ public class BlenderBlockEntity extends BlockEntity implements MenuProvider,Bloc
 
             @Override
             public int getSlotLimit(int slot) {
-
-                return slot == 2 ? 64 : 1;
+                return 64;
+                //return slot == 2 ? 64 : 1;
             }
 
             @Nonnull

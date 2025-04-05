@@ -65,8 +65,8 @@ public class BlenderRecipe implements Recipe<SimpleContainer> {
             submatches[0] = recipeItems.get(0).getItems()[0].getItem().equals(pContainer.getItem(0).getItem());
             submatches[1] = pContainer.getItem(1).getItem().equals(Items.AIR);
         }
-        for (int i = 0; i < submatches.length; i++) {
-            match &= submatches[i];
+        for (int i = 0; match && (i < submatches.length); i++) {
+            match = submatches[i];
         }
         return match;
     }
