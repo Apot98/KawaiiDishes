@@ -6,7 +6,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,12 +30,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class DisplayCaseBlock extends DirectionalBlock implements EntityBlock {
     public DisplayCaseBlock() {
-        super(Block.Properties.copy(Blocks.GLASS)
+        super(Block.Properties.of(Material.GLASS)
                 .strength(1.0F, 6.0F)
                 .noOcclusion()
                 .isSuffocating((p_61036_, p_61037_, p_61038_) -> false)
                 .isViewBlocking((p_61036_, p_61037_, p_61038_) -> false)
-                .requiresCorrectToolForDrops()
         );
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
@@ -71,6 +72,17 @@ public class DisplayCaseBlock extends DirectionalBlock implements EntityBlock {
     }
 
     @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @javax.annotation.Nullable LivingEntity placer, ItemStack stack) {
+        if (stack.hasCustomHoverName()) {
+            BlockEntity tileEntity = level.getBlockEntity(pos);
+            if (tileEntity instanceof DisplayCaseBlockEntity) {
+                ((DisplayCaseBlockEntity) tileEntity).setCustomName(stack.getHoverName());
+            }
+        }
+    }
+
+
+    @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
@@ -98,15 +110,18 @@ public class DisplayCaseBlock extends DirectionalBlock implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide() && pHit.getDirection().equals(pState.getValue(DirectionalBlock.FACING).getOpposite())) {
-
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if (entity instanceof DisplayCaseBlockEntity) {
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (DisplayCaseBlockEntity) entity, pPos);
-                //pPlayer.openMenu((DisplayCaseBlockEntity) entity);
-            } else {
-                throw new IllegalStateException("Our Container provider is missing!");
+        if (!pLevel.isClientSide()) {
+            if (pHit.getDirection().equals(pState.getValue(DirectionalBlock.FACING).getOpposite())) {
+                BlockEntity entity = pLevel.getBlockEntity(pPos);
+                if (entity instanceof DisplayCaseBlockEntity) {
+                    NetworkHooks.openGui(((ServerPlayer) pPlayer), (DisplayCaseBlockEntity) entity, pPos);
+                    //pPlayer.openMenu((DisplayCaseBlockEntity) entity);
+                } else {
+                    throw new IllegalStateException("Our Container provider is missing!");
+                }
+                return InteractionResult.SUCCESS;
             }
+            else return InteractionResult.PASS;
         }
         return InteractionResult.SUCCESS;
     }

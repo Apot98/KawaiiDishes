@@ -106,6 +106,7 @@ public class LangSupplier extends LanguageProvider {
         add(ItemRegister.iceCreamMachine.get(),"Ice Cream Maker");
         add(BlockRegister.coffeeMachine.get(),"Coffee Machine");
         add(BlockRegister.coffeePress.get(),"Coffee Press");
+        add(BlockRegister.DISPLAY_CASE.get(), "Display Case");
 
         add(ItemRegister.mug.get(),"Mug");
         add(ItemRegister.glassCup.get(),"Glass Cup");
@@ -141,6 +142,7 @@ public class LangSupplier extends LanguageProvider {
         add("gui.kawaiidishes.coffee_machine", "Coffee Machine");
         add("gui.kawaiidishes.ice_cream_machine", "Ice Cream Maker");
         add("gui.kawaiidishes.blender", "Blender");
+        add("gui.kawaiidishes.display_case", "Display Case");
 
         add(EffectRegister.kawaiiEffect.get(),"Kawaii");
         add(EffectRegister.nekoEffect.get(),"Neko-chan");

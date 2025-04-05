@@ -98,6 +98,17 @@ public class CraftingRecipeSupplier extends RecipeProvider implements ICondition
                 .save(pFinishedRecipeConsumer);
 
 
+        ShapedRecipeBuilder.shaped(ItemRegister.DISPLAY_CASE.get())
+                .pattern("ggg")
+                .pattern("gcg")
+                .pattern("xxx")
+                .define('g',Tags.Items.GLASS_PANES)
+                .define('c',Tags.Items.CHESTS_WOODEN)
+                .define('x',Items.IRON_INGOT)
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                .save(pFinishedRecipeConsumer);
+
+
         ShapelessRecipeBuilder.shapeless(ItemRegister.darkChocolateBar.get())
                 .requires(ItemRegister.cocoaPowder.get())
                 .requires(ItemRegister.cocoaPowder.get())

@@ -69,7 +69,7 @@ public class DisplayCaseBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public Component getName() {
-        return customName != null ? customName : new TranslatableComponent(KawaiiDishes.modId + "." + "container.display_case");
+        return customName != null ? customName : new TranslatableComponent("gui" + "." + KawaiiDishes.modId + "." + "display_case");
     }
 
     @Override
