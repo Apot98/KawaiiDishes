@@ -67,7 +67,7 @@ public class KawaiiDishes {
 
     public void onLivingSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
         Entity entity = event.getEntity();
-        if (!entity.isAddedToWorld() && entity instanceof Monster monster && !entity.serializeNBT().getBoolean("IsBaby") && event.getWorld().getRandom().nextFloat(0,1) < KawaiiDishesCommonConfig.chanceToSpawnWithDress.get()) {
+        if (!entity.isAddedToWorld() && entity instanceof Monster monster && monster.isBaby() && event.getWorld().getRandom().nextFloat(0,1) < KawaiiDishesCommonConfig.chanceToSpawnWithDress.get()) {
             if ((monster instanceof Skeleton
                     || monster instanceof WitherSkeleton
                     || monster instanceof Zombie
