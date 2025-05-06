@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlockEntity> {
@@ -36,24 +36,24 @@ public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlock
                 x = (i % 4) % 2;
                 y = (i % 4) / 2;
 
-                pPoseStack.scale(0.35f,0.35f,0.35f);
+                pPoseStack.scale(0.33f,0.33f,0.33f);
                 BlockState state = pBlockEntity.getLevel().getBlockState(pBlockEntity.getBlockPos());
 
-                switch ((state.getBlock().equals(BlockRegister.DISPLAY_CASE.get()) ? state.getValue(DirectionalBlock.FACING) : Direction.UP)){
+                switch ((state.getBlock().equals(BlockRegister.DISPLAY_CASE.get()) ? state.getValue(HorizontalDirectionalBlock.FACING) : Direction.UP)){
                     case NORTH -> {
-                        pPoseStack.translate(x + 1, (i >= 4 ? 0.5 : 1.85f), y + 1);
+                        pPoseStack.translate(x + 1, (i >= 4 ? 0.5 : 1.97f), y + 1);
                     }
                     case SOUTH -> {
                         pPoseStack.mulPose(Quaternion.fromXYZ(0, (float)(Math.toRadians(180)), 0));
-                        pPoseStack.translate(x - 2, (i >= 4 ? 0.5 : 1.85f), y - 2);
+                        pPoseStack.translate(x - 2, (i >= 4 ? 0.5 : 1.97f), y - 2);
                     }
                     case EAST -> {
                         pPoseStack.mulPose(Quaternion.fromXYZ(0, (float)(Math.toRadians(270)), 0));
-                        pPoseStack.translate(x + 1, (i >= 4 ? 0.5 : 1.85f), y - 2);
+                        pPoseStack.translate(x + 1, (i >= 4 ? 0.5 : 1.97f), y - 2);
                     }
                     case WEST -> {
                         pPoseStack.mulPose(Quaternion.fromXYZ(0, (float)(Math.toRadians(90)), 0));
-                        pPoseStack.translate(x - 2, (i >= 4 ? 0.5 : 1.85f), y + 1);
+                        pPoseStack.translate(x - 2, (i >= 4 ? 0.5 : 1.97f), y + 1);
                     }
                 }
                 pPoseStack.mulPose(Quaternion.fromXYZ((float)Math.PI/2.5f,0,0));
