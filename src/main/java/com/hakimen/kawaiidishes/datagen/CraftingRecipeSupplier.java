@@ -50,6 +50,14 @@ public class CraftingRecipeSupplier extends RecipeProvider implements ICondition
                 .unlockedBy(getHasName(Items.GLASS_PANE), has(Items.GLASS_PANE))
                 .save(pFinishedRecipeConsumer);
 
+        ShapedRecipeBuilder.shaped(ItemRegister.milkshakeCup.get())
+                .pattern("xgx")
+                .pattern("xxx")
+                .define('x', Items.PAPER)
+                .define('g', ItemRegister.glassCup.get())
+                .unlockedBy(getHasName(ItemRegister.glassCup.get()), has(ItemRegister.glassCup.get()))
+                .save(pFinishedRecipeConsumer);
+
         ShapedRecipeBuilder.shaped(ItemRegister.coffeeMachine.get())
                 .pattern("xxx")
                 .pattern(".pi")

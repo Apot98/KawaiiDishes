@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xgx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:paper"
+    },
+    "g": {
+      "item": "kawaiidishes:glass_cup"
+    }
+  },
+  "result": {
+    "item": "kawaiidishes:milkshake_cup"
+  }
+}
