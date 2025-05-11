@@ -24,7 +24,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'com.hakimen'
-version = '1.6.10'
+version = '1.6.11'
 
 java {
     archivesBaseName = 'KawaiiDishes'
@@ -155,6 +155,10 @@ repositories {
         url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = "https://modmaven.dev"
@@ -195,6 +199,10 @@ dependencies {
     //Jei
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+
+    //runtimeOnly fg.deobf("maven.modrinth:kotlin-for-forge:NBn3sEQk")
+    //runtimeOnly fg.deobf("maven.modrinth:libipn:afnOcsI2")
+    //runtimeOnly fg.deobf("maven.modrinth:inventory-profiles-next:ZngfLwFI")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
