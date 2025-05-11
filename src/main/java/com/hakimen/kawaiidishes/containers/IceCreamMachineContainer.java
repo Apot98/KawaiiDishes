@@ -86,7 +86,7 @@ public class IceCreamMachineContainer extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack stack1 = slot.getItem();
             stack = stack1.copy();
-            if (index < 5 && !this.moveItemStackTo(stack1, 1, this.slots.size(), true)) {
+            if (index < 5 && !this.moveItemStackTo(stack1, 5, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
             if (!this.moveItemStackTo(stack1, 0, 5, false)) {
